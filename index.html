@@ -15,29 +15,19 @@ color:white;
 text-align:center;
 }
 
-/* ekran titreme */
-.shake{
-animation:shake 0.4s;
-}
+/* SHAKE */
+.shake{animation:shake .4s;}
 @keyframes shake{
 0%{transform:translate(0)}
-25%{transform:translate(5px)}
-50%{transform:translate(-5px)}
-75%{transform:translate(5px)}
+25%{transform:translate(6px)}
+50%{transform:translate(-6px)}
+75%{transform:translate(6px)}
 100%{transform:translate(0)}
 }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
+canvas{position:fixed;top:0;left:0;z-index:-1;}
 
-h1{
-margin-top:30px;
-text-shadow:0 0 20px cyan;
-}
+h1{margin-top:30px;text-shadow:0 0 20px cyan;}
 
 .container{
 position:absolute;
@@ -59,11 +49,7 @@ cursor:pointer;
 .blue{background:#00aaff;color:white;}
 .green{background:#00cc66;color:white;}
 
-#message{
-margin-top:20px;
-font-size:22px;
-height:30px;
-}
+#message{margin-top:20px;font-size:22px;height:30px;}
 
 .heart{
 position:fixed;
@@ -78,7 +64,6 @@ to{transform:translateY(100vh);opacity:0;}
 position:fixed;
 width:10px;
 height:10px;
-background:red;
 animation:conf 3s linear forwards;
 }
 @keyframes conf{
@@ -88,7 +73,7 @@ to{transform:translateY(100vh) rotate(720deg);opacity:0;}
 .boom{
 position:fixed;
 font-size:30px;
-animation:boom 0.7s forwards;
+animation:boom .7s forwards;
 }
 @keyframes boom{
 0%{transform:scale(1);}
@@ -125,7 +110,9 @@ flex-direction:column;
 <div id="message"></div>
 
 <br>
-<input id="pass" placeholder="Gizli şifre">
+<input id="pass" placeholder="Gizli şifre"
+autocapitalize="off" autocomplete="off" autocorrect="off">
+
 <button onclick="checkPass()">Gizli Sayfa</button>
 </div>
 
@@ -183,7 +170,7 @@ boom.style.top=e.clientY+"px";
 document.body.appendChild(boom);
 setTimeout(()=>boom.remove(),700);
 
-/* yazı animasyonu */
+/* yazı anim */
 let text="Sana aşık oldum çünkü kalbim seni seçti ❤️";
 let i=0;
 message.innerHTML="";
@@ -205,10 +192,14 @@ w1.addEventListener(e,()=>move(w1));
 w2.addEventListener(e,()=>move(w2));
 });
 
-/* şifre kontrol */
+/* ŞİFRE SİSTEMİ — DÜZELTİLMİŞ */
 function checkPass(){
-let p=pass.value;
-if(p=="helinbabus"){
+
+let p=document.getElementById("pass").value
+.trim()
+.toLowerCase();
+
+if(p==="helinbabus"){
 
 /* konfeti */
 for(let i=0;i<120;i++){
@@ -220,11 +211,11 @@ document.body.appendChild(c);
 setTimeout(()=>c.remove(),3000);
 }
 
-/* sayfa aç */
+/* sayfa geçiş */
 main.style.display="none";
 secretPage.style.display="flex";
 
-/* yazı animasyonu */
+/* yazı anim */
 let msg="Sen hayatımdaki en güzel şeysin 💖";
 let i=0;
 type.innerHTML="";
@@ -244,7 +235,7 @@ function closeSecret(){
 secretPage.style.display="none";
 main.style.display="block";
 }
-</script>
 
+</script>
 </body>
 </html>
