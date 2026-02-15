@@ -15,6 +15,18 @@ color:white;
 text-align:center;
 }
 
+/* ekran titreme */
+.shake{
+animation:shake 0.4s;
+}
+@keyframes shake{
+0%{transform:translate(0)}
+25%{transform:translate(5px)}
+50%{transform:translate(-5px)}
+75%{transform:translate(5px)}
+100%{transform:translate(0)}
+}
+
 canvas{
 position:fixed;
 top:0;
@@ -24,11 +36,7 @@ z-index:-1;
 
 h1{
 margin-top:30px;
-animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-from{text-shadow:0 0 10px white;}
-to{text-shadow:0 0 30px cyan;}
+text-shadow:0 0 20px cyan;
 }
 
 .container{
@@ -53,9 +61,8 @@ cursor:pointer;
 
 #message{
 margin-top:20px;
-opacity:0;
-transition:1s;
 font-size:22px;
+height:30px;
 }
 
 .heart{
@@ -67,20 +74,25 @@ animation:fall linear forwards;
 to{transform:translateY(100vh);opacity:0;}
 }
 
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+background:red;
+animation:conf 3s linear forwards;
+}
+@keyframes conf{
+to{transform:translateY(100vh) rotate(720deg);opacity:0;}
+}
+
 .boom{
 position:fixed;
 font-size:30px;
-animation:boom 0.6s forwards;
+animation:boom 0.7s forwards;
 }
 @keyframes boom{
-0%{transform:scale(1);opacity:1;}
+0%{transform:scale(1);}
 100%{transform:scale(3);opacity:0;}
-}
-
-#name{
-margin-top:15px;
-font-size:24px;
-color:pink;
 }
 
 #secretPage{
@@ -110,25 +122,23 @@ flex-direction:column;
 <button class="blue" id="w1">💙</button>
 <button class="green" id="w2">💚</button>
 
-<div id="message">Sana aşık oldum çünkü… ❤️</div>
+<div id="message"></div>
 
-<input placeholder="Adını yaz..." oninput="showName(this.value)">
-<div id="name"></div>
-
-<br><br>
+<br>
 <input id="pass" placeholder="Gizli şifre">
 <button onclick="checkPass()">Gizli Sayfa</button>
 </div>
 
 <div id="secretPage">
-<h2>💖 SEN BENİMSİN 💖</h2>
-<p>Dünyanın en güzel insanı sensin.</p>
+<h2 id="type"></h2>
 <button onclick="closeSecret()">Geri</button>
 </div>
 
 <audio id="music" src="muzik.mp3"></audio>
 
 <script>
+
+/* yıldız */
 const c=document.getElementById("stars");
 const x=c.getContext("2d");
 c.width=innerWidth;
@@ -149,10 +159,11 @@ requestAnimationFrame(d);
 }
 d();
 
+/* doğru kalp */
 function correct(e){
-document.getElementById("music").play();
-document.getElementById("message").style.opacity=1;
+music.play();
 
+/* kalp yağmur */
 for(let i=0;i<40;i++){
 let h=document.createElement("div");
 h.className="heart";
@@ -163,42 +174,75 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),4000);
 }
 
+/* patlama */
 let boom=document.createElement("div");
 boom.className="boom";
 boom.innerHTML="💥";
 boom.style.left=e.clientX+"px";
 boom.style.top=e.clientY+"px";
 document.body.appendChild(boom);
-setTimeout(()=>boom.remove(),600);
+setTimeout(()=>boom.remove(),700);
+
+/* yazı animasyonu */
+let text="Sana aşık oldum çünkü kalbim seni seçti ❤️";
+let i=0;
+message.innerHTML="";
+let interval=setInterval(()=>{
+message.innerHTML+=text[i];
+i++;
+if(i>=text.length) clearInterval(interval);
+},40);
 }
 
+/* kaçan buton */
 function move(b){
 b.style.position="absolute";
 b.style.left=Math.random()*80+"vw";
 b.style.top=Math.random()*80+"vh";
 }
-["mouseover","touchstart"].forEach(ev=>{
-w1.addEventListener(ev,()=>move(w1));
-w2.addEventListener(ev,()=>move(w2));
+["mouseover","touchstart"].forEach(e=>{
+w1.addEventListener(e,()=>move(w1));
+w2.addEventListener(e,()=>move(w2));
 });
 
-function showName(v){
-document.getElementById("name").innerHTML="💖 "+v+" 💖";
+/* şifre kontrol */
+function checkPass(){
+let p=pass.value;
+if(p=="helinbabus"){
+
+/* konfeti */
+for(let i=0;i<120;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
 }
 
-function checkPass(){
-let p=document.getElementById("pass").value;
-if(p=="helinbabus"){   // ← ŞİFRE BURADA
-document.getElementById("secretPage").style.display="flex";
-document.getElementById("main").style.display="none";
+/* sayfa aç */
+main.style.display="none";
+secretPage.style.display="flex";
+
+/* yazı animasyonu */
+let msg="Sen hayatımdaki en güzel şeysin 💖";
+let i=0;
+type.innerHTML="";
+let t=setInterval(()=>{
+type.innerHTML+=msg[i];
+i++;
+if(i>=msg.length) clearInterval(t);
+},60);
+
 }else{
-alert("Yanlış şifre 😝");
+document.body.classList.add("shake");
+setTimeout(()=>document.body.classList.remove("shake"),400);
 }
 }
 
 function closeSecret(){
-document.getElementById("secretPage").style.display="none";
-document.getElementById("main").style.display="block";
+secretPage.style.display="none";
+main.style.display="block";
 }
 </script>
 
