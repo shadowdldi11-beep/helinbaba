@@ -15,7 +15,6 @@ color:white;
 text-align:center;
 }
 
-/* yıldız */
 canvas{
 position:fixed;
 top:0;
@@ -23,7 +22,6 @@ left:0;
 z-index:-1;
 }
 
-/* başlık animasyon */
 h1{
 margin-top:30px;
 animation:glow 2s infinite alternate;
@@ -69,7 +67,6 @@ animation:fall linear forwards;
 to{transform:translateY(100vh);opacity:0;}
 }
 
-/* patlama */
 .boom{
 position:fixed;
 font-size:30px;
@@ -80,14 +77,12 @@ animation:boom 0.6s forwards;
 100%{transform:scale(3);opacity:0;}
 }
 
-/* isim anim */
 #name{
 margin-top:15px;
 font-size:24px;
 color:pink;
 }
 
-/* gizli sayfa */
 #secretPage{
 display:none;
 position:fixed;
@@ -125,7 +120,6 @@ flex-direction:column;
 <button onclick="checkPass()">Gizli Sayfa</button>
 </div>
 
-<!-- gizli sayfa -->
 <div id="secretPage">
 <h2>💖 SEN BENİMSİN 💖</h2>
 <p>Dünyanın en güzel insanı sensin.</p>
@@ -135,7 +129,6 @@ flex-direction:column;
 <audio id="music" src="muzik.mp3"></audio>
 
 <script>
-/* yıldız */
 const c=document.getElementById("stars");
 const x=c.getContext("2d");
 c.width=innerWidth;
@@ -156,12 +149,10 @@ requestAnimationFrame(d);
 }
 d();
 
-/* doğru kalp */
 function correct(e){
 document.getElementById("music").play();
 document.getElementById("message").style.opacity=1;
 
-/* yağmur */
 for(let i=0;i<40;i++){
 let h=document.createElement("div");
 h.className="heart";
@@ -172,7 +163,6 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),4000);
 }
 
-/* patlama */
 let boom=document.createElement("div");
 boom.className="boom";
 boom.innerHTML="💥";
@@ -182,7 +172,6 @@ document.body.appendChild(boom);
 setTimeout(()=>boom.remove(),600);
 }
 
-/* kaçan buton */
 function move(b){
 b.style.position="absolute";
 b.style.left=Math.random()*80+"vw";
@@ -193,15 +182,13 @@ w1.addEventListener(ev,()=>move(w1));
 w2.addEventListener(ev,()=>move(w2));
 });
 
-/* isim anim */
 function showName(v){
 document.getElementById("name").innerHTML="💖 "+v+" 💖";
 }
 
-/* şifre */
 function checkPass(){
 let p=document.getElementById("pass").value;
-if(p=="1234"){
+if(p=="helinbabus"){   // ← ŞİFRE BURADA
 document.getElementById("secretPage").style.display="flex";
 document.getElementById("main").style.display="none";
 }else{
